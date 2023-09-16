@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    
+    /// <summary>
+    /// ゲームが開始したかどうか
+    /// </summary>
+    public static bool isGameStart = true;
+    
     // Start is called before the first frame update
     void Start()
     {
