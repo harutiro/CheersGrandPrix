@@ -76,11 +76,9 @@ public class SensorContoller : MonoBehaviour
             CheerEstimationModel result = cheerEstimation.CheerEstimationResult(linnearAcceleration);
             if (result != CheerEstimationModel.None && result != CheerEstimationModel.Missing)
             {
-                GameManager.cheersCount++;
-                countText.ChangeCountText(GameManager.cheersCount);
+                GameScoreStatic.Set(result,100);
+                countText.ChangeCountText(GameScoreStatic.Score);
                 testText.text = resultProcessing(result);
-                cupAudioSource.PlayOneShot(cheerAudioClip);
-
             }
             else if(result == CheerEstimationModel.Missing)
             {

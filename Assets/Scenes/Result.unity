@@ -231,6 +231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 227952a26d00d4aa894b5837219fbb3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CountText: {fileID: 1196135351}
+  PointText: {fileID: 1930451834}
+  LiquidText: {fileID: 965008326}
+  StrongText: {fileID: 310982691}
+  MessageText: {fileID: 2046854721}
 --- !u!4 &339983198
 Transform:
   m_ObjectHideFlags: 0
