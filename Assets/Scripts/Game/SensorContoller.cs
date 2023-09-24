@@ -10,6 +10,7 @@ public class SensorContoller : MonoBehaviour
 {
     
     private CheerEstimation cheerEstimation = new CheerEstimation();
+    private CheerRotateEstimation cheerRotateEstimation = new CheerRotateEstimation();
     private OtherFileStorage otherFileStorage = new OtherFileStorage();
     public CountController countText;
     public GameObject cup;
@@ -43,28 +44,21 @@ public class SensorContoller : MonoBehaviour
         
         if (Accelerometer.current != null && Gyroscope.current != null && AttitudeSensor.current != null && LinearAccelerationSensor.current != null)
         {
-            timer += Time.deltaTime;
 
             // 加速度のcsvデータ
+            timer += Time.deltaTime;
             string debugText = "";
             
-            // 生の加速度データを取得
-            // Vector3 acc = Accelerometer.current.acceleration.ReadValue();
+            // 生データを取得
             Vector3 gyro = Gyroscope.current.angularVelocity.ReadValue();
-            // 重力加速度をなくす
             Vector3 linnearAcceleration = LinearAccelerationSensor.current.acceleration.ReadValue();
             
-            Quaternion attitude = AttitudeSensor.current.attitude.ReadValue();
-            
-            // z軸以外の回転をなくす
-            // 90度回転させる
-            if(attitude.x != 0.0f && attitude.y != 0.0f && attitude.z != 0.0f)
-            {
-                cup.transform.rotation = Quaternion.Euler(0, 0, attitude.eulerAngles.z + 90f);
-            }
+            // 傾きによってジョッキを傾ける
+            float cheerRotateResult = cheerRotateEstimation.CheerEstimationRotateResult(gyro.z * 10f);
+            cup.transform.rotation = Quaternion.Euler(0, 0, cheerRotateResult);
             
             // csvデータの作成
-            debugText += timer + "," + attitude.x+ "," + attitude.y + "," + attitude.z;
+            debugText += timer + "," + linnearAcceleration.x+ "," + linnearAcceleration.y + "," + linnearAcceleration.z;
             
             // デバック用の出力
             // testText.text = ("Attitude: " + debugText);
@@ -91,3 +85,14 @@ public class SensorContoller : MonoBehaviour
         }
     }
 }
+
+
+//　ここでスマホの角度をそのまま取得してジョッキを回すが、あまり精度がよくない。
+// Quaternion attitude = AttitudeSensor.current.attitude.ReadValue();
+//
+// // z軸以外の回転をなくす
+// // 90度回転させる
+// if(attitude.x != 0.0f && attitude.y != 0.0f && attitude.z != 0.0f)
+// {
+//     cup.transform.rotation = Quaternion.Euler(0, 0, attitude.eulerAngles.z + 90f);
+// }
