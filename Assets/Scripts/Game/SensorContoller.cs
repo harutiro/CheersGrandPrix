@@ -14,6 +14,10 @@ public class SensorContoller : MonoBehaviour
     private OtherFileStorage otherFileStorage = new OtherFileStorage();
     public CountController countText;
     public GameObject cup;
+    private AudioSource cupAudioSource;
+    
+    public AudioClip bombAudioClip;
+    public AudioClip cheerAudioClip;
     
     // 重力ベクトルの初期化
     private Vector3 gravity = Vector3.down * 9.8f;
@@ -33,6 +37,9 @@ public class SensorContoller : MonoBehaviour
         if(Gyroscope.current != null) InputSystem.EnableDevice(Gyroscope.current);
         if(AttitudeSensor.current != null) InputSystem.EnableDevice(AttitudeSensor.current);
         if(LinearAccelerationSensor.current != null) InputSystem.EnableDevice(LinearAccelerationSensor.current);
+        
+        cupAudioSource = cup.GetComponent<AudioSource>();
+        
     }
     // Update is called once per frame
     void Update()
@@ -71,12 +78,13 @@ public class SensorContoller : MonoBehaviour
             {
                 GameManager.cheersCount++;
                 countText.ChangeCountText(GameManager.cheersCount);
-                testText.text += ("\n Estimation: " + result);
+                testText.text = resultProcessing(result);
+                cupAudioSource.PlayOneShot(cheerAudioClip);
+
             }
             else if(result == CheerEstimationModel.Missing)
             {
-                testText.text = "失敗";
-                testText.text += ("\n Estimation: " + result);
+                testText.text = resultProcessing(result);
             }
         }
         else
@@ -84,6 +92,39 @@ public class SensorContoller : MonoBehaviour
             Debug.Log("Attitude: No Attitude Sensor");
         }
     }
+
+    string resultProcessing(CheerEstimationModel result)
+    {
+        if (result == CheerEstimationModel.None)
+        {
+            return "";
+        }
+        else if (result == CheerEstimationModel.Weak)
+        {
+            cupAudioSource.PlayOneShot(cheerAudioClip);
+            return "ちょっと乾杯";            
+        }
+        else if (result == CheerEstimationModel.Normal)
+        {
+            cupAudioSource.PlayOneShot(cheerAudioClip);
+            return "乾杯";
+        }
+        else if (result == CheerEstimationModel.Strong)
+        {
+            cupAudioSource.PlayOneShot(cheerAudioClip);
+            return "たのしーく乾杯";
+        }
+        else if (result == CheerEstimationModel.Missing)
+        {
+            cupAudioSource.PlayOneShot(bombAudioClip);
+            return "強すぎ！！";
+        }
+        else
+        {
+            return "";
+        }
+    }
+    
 }
 
 
