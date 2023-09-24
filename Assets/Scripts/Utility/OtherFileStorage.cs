@@ -6,7 +6,7 @@ public class OtherFileStorage
     private bool fileAppend = true; //true=追記, false=上書き
     public string fileName = "acc.csv";
     public string date = System.DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
-    private string filePath = Application.dataPath;
+    private string filePath = Application.dataPath + "/SensorData";
     
     public void doLog(string text)
     {
