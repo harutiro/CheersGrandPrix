@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9150896674722498286}
   - component: {fileID: 5473939046872270739}
-  - component: {fileID: 1198623889809571551}
   - component: {fileID: 3663408994266191876}
   m_Layer: 0
   m_Name: Effect Camera
@@ -85,14 +84,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &1198623889809571551
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8515901289334675626}
-  m_Enabled: 1
 --- !u!114 &3663408994266191876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7462449f31a3194894ec40db2c09abd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iterations: 7
-  blurSpread: 0.7
+  iterations: 10
+  blurSpread: 0.1
   blurShader: {fileID: 4800000, guid: cd9d32a42147e9447bed4a4f20d5a4d6, type: 3}
