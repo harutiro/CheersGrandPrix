@@ -10348,6 +10348,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 806625254}
   maxTime: 60
+  MaxfinishTime: 5
+  FinishText: {fileID: 1946225812}
+  cup: {fileID: 447814338}
+  finishAudioClip: {fileID: 8300000, guid: 4ca42f749f81041a8bd3ac4cd2d22eec, type: 3}
 --- !u!4 &808276194 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2252824223470430039, guid: ba19d1324430246bca4efd0eabc0b07d, type: 3}
@@ -26348,7 +26352,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1946225811
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26375,7 +26379,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946225810}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
