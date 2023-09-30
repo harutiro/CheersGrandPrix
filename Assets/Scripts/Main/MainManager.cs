@@ -27,4 +27,10 @@ public class MainGameManager : MonoBehaviour
         SceneController.LoadScene(SceneController.SceneName.Game);
         GameManager.isGameStart = true;
     }
+    
+    public void OnClickHowToPlayButton()
+    {
+        // HowToPlaySceneに移動
+        SceneController.LoadScene(SceneController.SceneName.HowToPlay);
+    }
 }

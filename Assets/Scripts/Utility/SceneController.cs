@@ -21,7 +21,8 @@ public class SceneController : MonoBehaviour
     {
         Main,
         Game,
-        Result
+        Result,
+        HowToPlay
     }
 
     public static void LoadScene(SceneName sceneName)
