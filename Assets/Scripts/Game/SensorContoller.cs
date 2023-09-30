@@ -36,6 +36,9 @@ public class SensorContoller : MonoBehaviour
     public Text testText;
 
     private GameObject bomb;
+
+    private GameObject[] defaultWaters;
+    private GameObject[] waters;
     
     void Start()
     {
@@ -49,6 +52,10 @@ public class SensorContoller : MonoBehaviour
         // tagからbombを取得
         bomb = GameObject.FindGameObjectWithTag("Bomb");
         
+        // 一番最初の水の数を取得
+        defaultWaters = GameObject.FindGameObjectsWithTag("water");
+        
+        
     }
     // Update is called once per frame
     void Update()
@@ -58,8 +65,16 @@ public class SensorContoller : MonoBehaviour
         if(AttitudeSensor.current != null) InputSystem.EnableDevice(AttitudeSensor.current);
         if(LinearAccelerationSensor.current != null) InputSystem.EnableDevice(LinearAccelerationSensor.current);
         
-        if (Accelerometer.current != null && Gyroscope.current != null && AttitudeSensor.current != null && LinearAccelerationSensor.current != null)
-        {
+        if (
+            Accelerometer.current != null &&
+            Gyroscope.current != null &&
+            AttitudeSensor.current != null &&
+            LinearAccelerationSensor.current != null &&
+            GameManager.isGameStart
+        ) {
+            
+            // 水の数を取得
+            waters = GameObject.FindGameObjectsWithTag("water");
             
             // bombを初期化する
             bomb.GetComponent<CircleCollider2D>().radius = 0.0f;
@@ -84,11 +99,15 @@ public class SensorContoller : MonoBehaviour
             Debug.Log("Attitude: " + debugText);
             // otherFileStorage.doLog(debugText);
             
+            Debug.Log("液体数" + waters.Length);
+            
             // 状態の推定
             CheerEstimationModel result = cheerEstimation.CheerEstimationResult(Acceleration);
             if (result != CheerEstimationModel.None && result != CheerEstimationModel.Missing && result != CheerEstimationModel.Weak)
             {
-                GameScoreStatic.Set(result,100);
+                int waterPercent = (int) ((float)waters.Length / (float)defaultWaters.Length * 100);
+                
+                GameScoreStatic.Set(result,waterPercent);
                 countText.ChangeCountText(GameScoreStatic.Score);
                 MessageText.text = resultProcessing(result);
             }

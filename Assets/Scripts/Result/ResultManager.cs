@@ -29,16 +29,16 @@ public class ResultGameManager : MonoBehaviour
     public void SetTextScore()
     {
         CountText.text = GameScoreStatic.Count.ToString() + " 回乾杯した。";
-        PointText.text = GameScoreStatic.Score.ToString() + " 点";
+        PointText.text = GameScoreStatic.Score + " 点";
         LiquidText.text = GameScoreStatic.WaterPercent.ToString() + "パーセント残った";
-        StrongText.text = GameScoreStatic.Weak + " 弱 "　+ GameScoreStatic.Normal + " 普 " + GameScoreStatic.Strong + " 強";
+        StrongText.text = GameScoreStatic.Normal + " 普 " + GameScoreStatic.Strong + " 強";
         MessageText.text = messageSwitch(GameScoreStatic.Score);
     }
 
     private string messageSwitch(int point)
     {
         // ポイントに応じて対応するメッセージを取得
-        int[] thresholds = { 0, 30, 60, 90 }; // 閾値を定義
+        int[] thresholds = { 0, 30, 40, 50, 60 }; // 閾値を定義
         for (int i = thresholds.Length - 1; i >= 0; i--)
         {
             if (point > thresholds[i])
