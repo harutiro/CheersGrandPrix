@@ -56,4 +56,10 @@ public class ResultGameManager : MonoBehaviour
         SceneController.LoadScene(SceneController.SceneName.Main);
         GameScoreStatic.Rest();
     }
+    
+    public void OnClickRankingButton()
+    {
+        naichilab.RankingLoader.Instance.SendScoreAndShowRanking(GameScoreStatic.Score);
+    }
+
 }

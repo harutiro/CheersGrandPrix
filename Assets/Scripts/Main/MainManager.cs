@@ -16,6 +16,11 @@ public class MainGameManager : MonoBehaviour
         
     }
     
+    public void OnClickRankingButton()
+    {
+        naichilab.RankingLoader.Instance.SendScoreAndShowRanking(0);
+    }
+    
     public void OnClickStartButton()
     {
         // GameSceneに移動
