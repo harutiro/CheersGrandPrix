@@ -22,6 +22,6 @@ public class CountController : MonoBehaviour
     
     public void ChangeCountText(int count)
     {
-        countText.text = "乾杯　"　+ count.ToString() + " 回";
+        countText.text = "乾杯ポイント　"　+ count;
     }
 }

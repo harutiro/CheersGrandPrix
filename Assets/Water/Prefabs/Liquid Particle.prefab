@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4795868691648292122}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1274067, y: 9.08, z: -0.033200882}
+  m_LocalPosition: {x: -0.1274067, y: 9.08, z: 0}
   m_LocalScale: {x: 0.2777, y: 0.2777, z: 0.2777}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -101,7 +101,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 0.1
+  m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: ccac644048ff6b54488e77335c753d38, type: 2}
   m_IncludeLayers:
     serializedVersion: 2

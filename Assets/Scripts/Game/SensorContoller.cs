@@ -11,7 +11,7 @@ public class SensorContoller : MonoBehaviour
     
     private CheerEstimation cheerEstimation = new CheerEstimation();
     private CheerRotateEstimation cheerRotateEstimation = new CheerRotateEstimation();
-    private OtherFileStorage otherFileStorage = new OtherFileStorage();
+    // private OtherFileStorage otherFileStorage = new OtherFileStorage();
     public CountController countText;
     public GameObject cup;
     private AudioSource cupAudioSource;
@@ -28,8 +28,13 @@ public class SensorContoller : MonoBehaviour
     // csv用の相対時間を計測するための変数
     private float timer = 0.0f;
     
-    // 出力用のテキスト
+    // message用のテキスト
+    public Text MessageText;
+    
+    // Debug用のテキスト
     public Text testText;
+
+    private GameObject bomb;
     
     void Start()
     {
@@ -39,6 +44,9 @@ public class SensorContoller : MonoBehaviour
         if(LinearAccelerationSensor.current != null) InputSystem.EnableDevice(LinearAccelerationSensor.current);
         
         cupAudioSource = cup.GetComponent<AudioSource>();
+        
+        // tagからbombを取得
+        bomb = GameObject.FindGameObjectWithTag("Bomb");
         
     }
     // Update is called once per frame
@@ -51,6 +59,9 @@ public class SensorContoller : MonoBehaviour
         
         if (Accelerometer.current != null && Gyroscope.current != null && AttitudeSensor.current != null && LinearAccelerationSensor.current != null)
         {
+            
+            // bombを初期化する
+            bomb.GetComponent<CircleCollider2D>().radius = 0.0f;
 
             // 加速度のcsvデータ
             timer += Time.deltaTime;
@@ -58,31 +69,32 @@ public class SensorContoller : MonoBehaviour
             
             // 生データを取得
             Vector3 gyro = Gyroscope.current.angularVelocity.ReadValue();
-            Vector3 linnearAcceleration = LinearAccelerationSensor.current.acceleration.ReadValue();
+            Vector3 Acceleration = LinearAccelerationSensor.current.acceleration.ReadValue();
             
             // 傾きによってジョッキを傾ける
             float cheerRotateResult = cheerRotateEstimation.CheerEstimationRotateResult(gyro.z * 10f);
             cup.transform.rotation = Quaternion.Euler(0, 0, cheerRotateResult);
             
             // csvデータの作成
-            debugText += timer + "," + linnearAcceleration.x+ "," + linnearAcceleration.y + "," + linnearAcceleration.z;
+            // debugText += timer + "," + Acceleration.x+ "," + Acceleration.y + "," + Acceleration.z;
             
             // デバック用の出力
-            // testText.text = ("Attitude: " + debugText);
+            testText.text = ("Attitude: " + debugText);
             Debug.Log("Attitude: " + debugText);
-            otherFileStorage.doLog(debugText);
+            // otherFileStorage.doLog(debugText);
             
             // 状態の推定
-            CheerEstimationModel result = cheerEstimation.CheerEstimationResult(linnearAcceleration);
+            CheerEstimationModel result = cheerEstimation.CheerEstimationResult(Acceleration);
             if (result != CheerEstimationModel.None && result != CheerEstimationModel.Missing)
             {
                 GameScoreStatic.Set(result,100);
                 countText.ChangeCountText(GameScoreStatic.Score);
-                testText.text = resultProcessing(result);
+                MessageText.text = resultProcessing(result);
             }
             else if(result == CheerEstimationModel.Missing)
             {
-                testText.text = resultProcessing(result);
+                bomb.GetComponent<CircleCollider2D>().radius = 2f;
+                MessageText.text = resultProcessing(result);
             }
         }
         else
