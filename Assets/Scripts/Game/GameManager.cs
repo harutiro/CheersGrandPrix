@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// ゲームが開始したかどうか
     /// </summary>
-    public static bool isGameStart = true;
+    public static bool isGameStart = false;
     
 
     

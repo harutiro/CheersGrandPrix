@@ -10428,7 +10428,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 806625254}
-  maxTime: 60
+  maxTime: 20
   MaxfinishTime: 5
   FinishText: {fileID: 1946225812}
   cup: {fileID: 447814338}

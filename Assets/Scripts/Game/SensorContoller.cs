@@ -18,6 +18,7 @@ public class SensorContoller : MonoBehaviour
     
     public AudioClip bombAudioClip;
     public AudioClip cheerAudioClip;
+    public AudioClip aerAudioClip;
     
     // 重力ベクトルの初期化
     private Vector3 gravity = Vector3.down * 9.8f;
@@ -85,7 +86,7 @@ public class SensorContoller : MonoBehaviour
             
             // 状態の推定
             CheerEstimationModel result = cheerEstimation.CheerEstimationResult(Acceleration);
-            if (result != CheerEstimationModel.None && result != CheerEstimationModel.Missing)
+            if (result != CheerEstimationModel.None && result != CheerEstimationModel.Missing && result != CheerEstimationModel.Weak)
             {
                 GameScoreStatic.Set(result,100);
                 countText.ChangeCountText(GameScoreStatic.Score);
@@ -94,6 +95,10 @@ public class SensorContoller : MonoBehaviour
             else if(result == CheerEstimationModel.Missing)
             {
                 bomb.GetComponent<CircleCollider2D>().radius = 2f;
+                MessageText.text = resultProcessing(result);
+            }
+            else if (result == CheerEstimationModel.Weak)
+            {
                 MessageText.text = resultProcessing(result);
             }
         }
@@ -111,8 +116,8 @@ public class SensorContoller : MonoBehaviour
         }
         else if (result == CheerEstimationModel.Weak)
         {
-            cupAudioSource.PlayOneShot(cheerAudioClip);
-            return "ちょっと乾杯";            
+            cupAudioSource.PlayOneShot(aerAudioClip);
+            return "勇気を出して、もっと力を";            
         }
         else if (result == CheerEstimationModel.Normal)
         {

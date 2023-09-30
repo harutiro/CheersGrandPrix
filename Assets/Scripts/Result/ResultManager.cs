@@ -38,7 +38,7 @@ public class ResultGameManager : MonoBehaviour
     private string messageSwitch(int point)
     {
         // ポイントに応じて対応するメッセージを取得
-        int[] thresholds = { 0, 60, 90, 120 }; // 閾値を定義
+        int[] thresholds = { 0, 30, 60, 90 }; // 閾値を定義
         for (int i = thresholds.Length - 1; i >= 0; i--)
         {
             if (point > thresholds[i])

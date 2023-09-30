@@ -13,7 +13,7 @@ public class TimerController : MonoBehaviour
     /// <summary>
     /// タイマーの最大値
     /// </summary>
-    public float maxTime = 60.0f;
+    public float maxTime = 20.0f;
     
     /// <summary>
     /// タイマーの現在値

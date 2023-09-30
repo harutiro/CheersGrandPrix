@@ -20,5 +20,6 @@ public class MainGameManager : MonoBehaviour
     {
         // GameSceneに移動
         SceneController.LoadScene(SceneController.SceneName.Game);
+        GameManager.isGameStart = true;
     }
 }
